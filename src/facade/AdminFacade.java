@@ -48,29 +48,11 @@ public class AdminFacade implements CouponClientFacade {
 
 	public void createCompany(Company c) throws CouponSystemException {
 
-		Connection con = null;
-		try {
-			con = cp.getConnection();
-			String query = "select count(comp_name) as count from company where comp_name=?";
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setString(1, c.getCompName());
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.getInt("count")!=0) {
-				throw new CouponSystemException("Couln't create company, company with that name exists");
-			} else {
-				long id = compDBDAO.create(c);
-				c.setId(id);
-			}
-			cp.returnConnection(con);
-
-		} catch (SQLException e) {
-			throw new CouponSystemException("Could not create new company");
-		} finally {
-			try {
-				DBDAO.returnConnectionToPool(con);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		if (!compDBDAO.DoesNameExist(c.getCompName())) {
+			long id = compDBDAO.create(c);
+			c.setId(id);
+		} else {
+			throw new CouponSystemException("Couln't create new company");
 		}
 
 	}
@@ -111,31 +93,13 @@ public class AdminFacade implements CouponClientFacade {
 
 	public void createCustomer(Customer c) throws CouponSystemException {
 
-		Connection con = null;
-		try {
-			con = cp.getConnection();
-			String query = "select count(*) as cnt from CUSTOMER where CUST_NAME=?";
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setString(1, c.getCustName());
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				int count = rs.getInt("cnt");
-				if (count == 0) {
-					long id = custDBDAO.create(c);
-					c.setId(id);
-				} else {
-					throw new CouponSystemException("Customer with this name already exists");
-				}
-			}
-		} catch (SQLException e) {
-			throw new CouponSystemException("Could not create Customer");
-		} finally {
-			try {
-				DBDAO.returnConnectionToPool(con);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		if (!custDBDAO.DoesNameExist(c.getCustName())) {
+			long id = custDBDAO.create(c);
+			c.setId(id);
+		} else {
+			throw new CouponSystemException("Couln't create new customer");
 		}
+
 	}
 
 	public void removeCustomer(Customer c) throws CouponSystemException {

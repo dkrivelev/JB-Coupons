@@ -8,14 +8,13 @@ public class Company {
 	private String compName;
 	private String password;
 	private String email;
-	/*private Collection<Coupon> coupons;*/
-	public Company(long id, String compName, String password, String email/*, Collection<Coupon> coupons*/) {
+	public Company(long id, String compName, String password, String email) {
 		super();
 		this.id = id;
 		this.compName = compName;
 		this.password = password;
 		this.email = email;
-		/*this.coupons = coupons;*/
+		
 	}
 	public long getId() {
 		return id;
@@ -41,16 +40,10 @@ public class Company {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-/*	public Collection<Coupon> getCoupons() {
-		return coupons;
-	}*/
-/*	public void setCoupons(Collection<Coupon> coupons) {
-		this.coupons = coupons;
-	}*/
 	@Override
 	public String toString() {
 		return "Company [id=" + id + ", compName=" + compName + ", password=" + password + ", email=" + email
-				+ "]"; /* what about the toString method of the collection? */
+				+ "]"; 
 	}
 	
 	

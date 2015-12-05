@@ -2,7 +2,7 @@ package Connection;
 
 import java.sql.SQLException;
 
-import DAO.CouponDBDAO;
+
 import Utility_classes.DailyCouponExpirationTask;
 import facade.AdminFacade;
 import facade.CompanyFacade;
@@ -11,7 +11,7 @@ import facade.CustomerFacade;
 
 public class CouponSystem {
 	
-	private static CouponSystem instance;
+	private static CouponSystem instance = null;
 	private DailyCouponExpirationTask dcet;
 	private Thread cleanupThread;
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import Beans.Coupon;
+import Beans.Customer;
 import Connection.ConnectionPool;
 import Connection.CouponSystemException;
 
@@ -139,4 +140,31 @@ public class CustomerCouponDBDAO implements CustomerCouponDAO {
 
 	}
 
+	public boolean HasCouponBeenPurchased(Coupon c, Customer cus) {
+
+		Connection con = null;
+		try {
+			con = cp.getConnection();
+			String query = "select count(coupon_id) as count from customer_coupon where cust_id=? and coupon_id=?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setLong(1, cus.getId());
+			pstmt.setLong(2, c.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				if (rs.getInt("count") > 0) {
+					throw new CouponSystemException("cannot purchase coupon that has alread been purchased");
+				} 
+			}
+			cp.returnConnection(con);
+		} catch (SQLException e) {
+			throw new CouponSystemException("Could not fetch Coupon information from customer coupon DB");
+		} finally {
+			try {
+				DBDAO.returnConnectionToPool(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 }

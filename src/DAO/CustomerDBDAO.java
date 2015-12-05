@@ -226,4 +226,31 @@ public class CustomerDBDAO implements CustomerDAO {
 		return id;
 	}
 
+	public boolean DoesNameExist(String custName) {
+		
+		Connection con = null;
+		try {
+			con = cp.getConnection();
+			String query = "select count(*) as cnt from CUSTOMER where CUST_NAME=?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, custName);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int count = rs.getInt("cnt");
+				if (count > 0) {
+					throw new CouponSystemException("Customer with this name already exists");
+				}
+			}
+		} catch (SQLException e) {
+			throw new CouponSystemException("Could not fetch information from customer table");
+		} finally {
+			try {
+				DBDAO.returnConnectionToPool(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 }

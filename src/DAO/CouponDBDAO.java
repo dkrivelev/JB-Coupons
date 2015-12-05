@@ -220,7 +220,7 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			ConnectionPool cp = ConnectionPool.getInstance();
 			con = cp.getConnection();
-			String query = "SELECT ID,title, startDate, endDate, amount, message, price, image from Coupon where date=?";
+			String query = "SELECT ID,title, startDate, endDate, amount, message, price, image from Coupon where endDate=?";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setDate(1, end_date);
 			ResultSet rs = pstmt.executeQuery();

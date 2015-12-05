@@ -55,41 +55,22 @@ public class CustomerFacade implements CouponClientFacade{
 	}
 	
 	public void purchaseCoupon(Coupon c) throws CouponSystemException {
-		
-		Connection con = null;
-		try {
-			con = cp.getConnection();
-			String query = "select count(coupon_id) as count from customer_coupon where cust_id=? and coupon_id=?";
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setLong(1, customer.getId());
-			pstmt.setLong(2, c.getId());
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				if (rs.getInt("count") > 0) {
-					throw new CouponSystemException("cannot purchase coupon that has alread been purchased");
-				}else {
-					Coupon temp_coupon = coupDBDAO.get(c.getId());
-					if (temp_coupon.getAmount()==0) {
-						throw new CouponSystemException("cannot purchase coupon - no more left");
-					}else { // to do - check that coupon is not expired
-						custcouponDBDAO.createCoupon(customer.getId(), c.getId());
-						temp_coupon.setAmount(c.getAmount()-1);
-						coupDBDAO.update(temp_coupon);
-						
-					}
-				}
+
+		if (!(custcouponDBDAO.HasCouponBeenPurchased(c, customer))) {
+			Coupon temp_coupon = coupDBDAO.get(c.getId());
+			if (temp_coupon.getAmount() == 0) {
+				throw new CouponSystemException("cannot purchase coupon - no more left");
+			} else { // to do - check that coupon is not expired
+				custcouponDBDAO.createCoupon(customer.getId(), c.getId());
+				temp_coupon.setAmount(c.getAmount() - 1);
+				coupDBDAO.update(temp_coupon);
+
 			}
-		}catch (SQLException e) {
-			throw new CouponSystemException("Could not purchase Coupon");
-		} finally {
-			try {
-				DBDAO.returnConnectionToPool(con);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+
 		}
-		
+
 	}
+
 	
 	public Collection<Coupon> getAllPurchasedCoupons() throws CouponSystemException {
 		Collection<Coupon> result = new ArrayList<>();

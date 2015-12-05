@@ -3,7 +3,7 @@ package Connection;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+
 
 public class ConnectionPool {
 
@@ -13,7 +13,7 @@ public class ConnectionPool {
 	private static String dbURL = "jdbc:derby://localhost:1527/" + dbName;
 	private static String driverName = "org.apache.derby.jdbc.ClientDriver40";
 
-	private final static ConnectionPool instance = new ConnectionPool();
+	private static ConnectionPool instance = null;
 	
 	private ConnectionPool() {
 
@@ -38,6 +38,10 @@ public class ConnectionPool {
 	}
 	
 	public static ConnectionPool getInstance() {
+		if (instance == null) {
+			instance = new ConnectionPool(); 
+		}
+		
 		return instance;
 	}
 	

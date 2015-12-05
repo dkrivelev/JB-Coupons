@@ -230,4 +230,31 @@ public class CompanyDBDAO implements CompanyDAO {
 		return id;
 	}
 
+	public boolean DoesNameExist(String compName) {
+		
+		Connection con = null;
+		try {
+			con = cp.getConnection();
+			String query = "select count(comp_name) as count from company where comp_name=?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, compName);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.getInt("count")!=0) {
+				throw new CouponSystemException("Can't create company, company with that name exists");
+			}
+
+			cp.returnConnection(con);
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("Could not fetch information from company table");
+		} finally {
+			try {
+				DBDAO.returnConnectionToPool(con);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 }
