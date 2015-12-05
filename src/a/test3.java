@@ -6,6 +6,10 @@ public class test3 {
 	test
 	test
 	test
+	
+	test
+	test
+	test
 	}
 	
 }
