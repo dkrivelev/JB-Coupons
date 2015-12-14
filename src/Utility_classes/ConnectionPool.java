@@ -1,4 +1,4 @@
-package Connection;
+package Utility_classes;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -7,17 +7,24 @@ import java.util.Iterator;
 
 public class ConnectionPool {
 
+	/**
+	 * This class is used to create and maintain a connection pool to the DB.
+	 * The class is a singleton so that only one ConnectionPool per system will exist.
+	 */
+	
 	private HashSet<Connection> cons;
-	private int max_connections = 5;
+	private int max_connections;
 	private static String dbName = "CouponSystemDB";
 	private static String dbURL = "jdbc:derby://localhost:1527/" + dbName;
 	private static String driverName = "org.apache.derby.jdbc.ClientDriver40";
 
 	private static ConnectionPool instance = null;
 	
-	private ConnectionPool() {
+	private ConnectionPool(int max_connections) {
 
-		cons = new HashSet<>();
+		this.max_connections = max_connections;
+		
+		cons = new HashSet<>(); /* all connection will be stored in this hashset */
 		
 		try {
 			Class.forName(driverName);
@@ -25,6 +32,10 @@ public class ConnectionPool {
 			throw new CouponSystemException("No db driver found."); 
 		}
 
+		/**
+		 * We add an amount of connections to the connection pool equivalent to max_connections
+		 */
+		
 		try {
 			for (int i = 0; i < max_connections; i++) {
 				cons.add(DriverManager.getConnection(dbURL));
@@ -39,13 +50,18 @@ public class ConnectionPool {
 	
 	public static ConnectionPool getInstance() {
 		if (instance == null) {
-			instance = new ConnectionPool(); 
+			instance = new ConnectionPool(5); 
 		}
 		
 		return instance;
 	}
 	
 	public synchronized Connection getConnection() {
+		
+		/**
+		 * Caller of the method receives a connection, 
+		 * and removes it from the available connection hashset.
+		 */
 		
 		while (cons.isEmpty()) {
 			

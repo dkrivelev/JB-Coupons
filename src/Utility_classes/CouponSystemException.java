@@ -1,4 +1,4 @@
-package Connection;
+package Utility_classes;
 
 public class CouponSystemException extends RuntimeException {
 

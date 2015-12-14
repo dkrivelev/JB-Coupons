@@ -11,8 +11,8 @@ import java.util.Collection;
 import Beans.Coupon;
 import Beans.CouponType;
 import Beans.Customer;
-import Connection.ConnectionPool;
-import Connection.CouponSystemException;
+import Utility_classes.ConnectionPool;
+import Utility_classes.CouponSystemException;
 import Utility_classes.dbMethods;
 
 public class CustomerDBDAO implements CustomerDAO {

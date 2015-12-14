@@ -9,8 +9,8 @@ import java.util.Collection;
 
 import Beans.Coupon;
 import Beans.Customer;
-import Connection.ConnectionPool;
-import Connection.CouponSystemException;
+import Utility_classes.ConnectionPool;
+import Utility_classes.CouponSystemException;
 
 public class CustomerCouponDBDAO implements CustomerCouponDAO {
 

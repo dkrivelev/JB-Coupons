@@ -1,12 +1,14 @@
 package facade;
 
-import Connection.CouponSystem.ClientType;
 import DAO.CompanyCouponDBDAO;
 import DAO.CompanyDBDAO;
 import DAO.CouponDBDAO;
 import DAO.CustomerCouponDBDAO;
 import DAO.CustomerDBDAO;
 import DAO.DBDAO;
+import Utility_classes.ConnectionPool;
+import Utility_classes.CouponSystemException;
+import Utility_classes.CouponSystem.ClientType;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -19,8 +21,6 @@ import java.util.Collection;
 import Beans.Coupon;
 import Beans.CouponType;
 import Beans.Customer;
-import Connection.ConnectionPool;
-import Connection.CouponSystemException;
 
 public class CustomerFacade implements CouponClientFacade{
 	

@@ -3,7 +3,7 @@ package DAO;
 import java.util.Collection;
 
 import Beans.Coupon;
-import Connection.CouponSystemException;
+import Utility_classes.CouponSystemException;
 
 public interface CompanyCouponDAO {
 	

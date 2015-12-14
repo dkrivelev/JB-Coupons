@@ -3,8 +3,8 @@ package DAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import Connection.ConnectionPool;
-import Connection.CouponSystemException;
+import Utility_classes.ConnectionPool;
+import Utility_classes.CouponSystemException;
 
 public class DBDAO {
 

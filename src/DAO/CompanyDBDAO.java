@@ -10,7 +10,8 @@ import java.util.Collection;
 import Beans.Company;
 import Beans.Coupon;
 import Beans.CouponType;
-import Connection.*;
+import Utility_classes.ConnectionPool;
+import Utility_classes.CouponSystemException;
 import Utility_classes.dbMethods;
 
 public class CompanyDBDAO implements CompanyDAO {

@@ -1,7 +1,7 @@
 package Test;
 
-import Connection.CouponSystem;
-import Connection.CouponSystem.ClientType;
+import Utility_classes.CouponSystem;
+import Utility_classes.CouponSystem.ClientType;
 import facade.AdminFacade;
 
 public class Test {

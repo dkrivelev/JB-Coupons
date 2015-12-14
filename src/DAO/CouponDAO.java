@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import Beans.Coupon;
 import Beans.CouponType;
-import Connection.CouponSystemException;
+import Utility_classes.CouponSystemException;
 
 public interface CouponDAO extends BasicDAO<Coupon> {
 

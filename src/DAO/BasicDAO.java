@@ -2,7 +2,7 @@ package DAO;
 
 import java.util.Collection;
 
-import Connection.CouponSystemException;
+import Utility_classes.CouponSystemException;
 
 public interface BasicDAO<T> { // 
 

@@ -1,6 +1,6 @@
 package DAO;
 import Beans.*;
-import Connection.CouponSystemException;
+import Utility_classes.CouponSystemException;
 
 import java.util.Collection;
 

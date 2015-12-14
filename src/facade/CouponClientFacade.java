@@ -1,8 +1,8 @@
 package facade;
 
-import Connection.CouponSystem;
-import Connection.CouponSystem.ClientType;
-import Connection.CouponSystemException;
+import Utility_classes.CouponSystem;
+import Utility_classes.CouponSystemException;
+import Utility_classes.CouponSystem.ClientType;
 
 public interface CouponClientFacade {
 	

@@ -9,14 +9,14 @@ import java.util.Collection;
 import Beans.Company;
 import Beans.Coupon;
 import Beans.Customer;
-import Connection.ConnectionPool;
-import Connection.CouponSystem.ClientType;
-import Connection.CouponSystemException;
 import DAO.CompanyCouponDBDAO;
 import DAO.CompanyDBDAO;
 import DAO.CustomerCouponDBDAO;
 import DAO.CustomerDBDAO;
 import DAO.DBDAO;
+import Utility_classes.ConnectionPool;
+import Utility_classes.CouponSystemException;
+import Utility_classes.CouponSystem.ClientType;
 
 public class AdminFacade implements CouponClientFacade {
 

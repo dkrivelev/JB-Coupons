@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import Beans.Company;
 import Beans.Coupon;
-import Connection.CouponSystemException;
+import Utility_classes.CouponSystemException;
 
 public interface CompanyDAO extends BasicDAO<Company> {
 	

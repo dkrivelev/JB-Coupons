@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.GregorianCalendar;
 
 import Beans.Coupon;
-import Connection.ConnectionPool;
-import Connection.CouponSystemException;
 import DAO.CompanyCouponDBDAO;
 import DAO.CompanyDBDAO;
 import DAO.CouponDBDAO;
